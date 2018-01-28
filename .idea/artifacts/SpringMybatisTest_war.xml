@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="SpringMybatisTest:war">
+    <output-path>$PROJECT_DIR$/SpringMybatisTest/target</output-path>
+    <root id="archive" name="SpringMybatisTest.war">
+      <element id="artifact" artifact-name="SpringMybatisTest:war exploded" />
+    </root>
+  </artifact>
+</component>

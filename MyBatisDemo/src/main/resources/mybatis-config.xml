@@ -4,12 +4,12 @@
 <configuration>
     <properties resource="db.properties">
         <property name="jdbc.username" value="root"/>
-        <property name="jdbc.password" value="xxxx"/><!-- test overwrite by db.properties -->
+        <property name="jdbc.password" value="xxxx"/><!-- domain overwrite by db.properties -->
     </properties>
     <typeAliases>
        <!-- <typeAlias alias="Student" type="com.hyc.domain.Student" />
         <typeAlias alias="User" type="com.hyc.domain.User" />-->
-        <package name="com.hyc.domain" /><!-- test package config -->
+        <package name="com.hyc.domain" /><!-- domain package config -->
     </typeAliases>
     <environments default="development">
         <environment id="development">
@@ -21,7 +21,7 @@
                 <property name="password" value="admin123" />
             </dataSource>
         </environment>
-        <environment id="production"><!-- test multi dataSource use db.properties-->
+        <environment id="production"><!-- domain multi dataSource use db.properties-->
             <transactionManager type="MANAGED" />
             <dataSource type="POOLED">
                 <property name="driver" value="${jdbc.driverClassName}" />

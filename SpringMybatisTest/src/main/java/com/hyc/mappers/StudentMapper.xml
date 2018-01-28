@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hyc.mappers.StudentMapper">
+  <resultMap id="BaseResultMap" type="com.hyc.domain.Student">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="grade" jdbcType="VARCHAR" property="grade" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, phone, email, grade, photo
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryObject" resultType="com.hyc.domain.Student">
+    select * from student where id = #{value}
+  </select>
+
+  <select id="queryList" resultType="com.hyc.domain.Student">
+    select * from student
+    <where>
+      <!--<if test="createUserId != null">
+        and `create_user_id` = #{createUserId}
+      </if>-->
+      <if test="name != null and name.trim() != ''">
+        and `name` like concat('%',#{name},'%')
+      </if>
+    </where>
+    <choose>
+<!--      <when test="sidx != null and sidx.trim() != ''">
+        order by ${sidx} ${order}
+      </when>-->
+      <otherwise>
+        order by id desc
+      </otherwise>
+    </choose>
+    <if test="offset != null and limit != null">
+      limit #{offset}, #{limit}
+    </if>
+  </select>
+
+  <select id="queryTotal" resultType="int">
+    select count(*) from student
+    <where>
+      <if test="name != null and name.trim() != ''">
+        and `name` like concat('%',#{name},'%')
+      </if>
+    </where>
+  </select>
+
+  <select id="queryByStuName" resultType="com.hyc.domain.Student">
+    select * from student where name = #{stuName}
+  </select>
+
+  <insert id="save" parameterType="com.hyc.domain.Student" useGeneratedKeys="true" keyProperty="id">
+    insert into student (id, name, phone, 
+      email, grade, photo
+      )
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <update id="update" parameterType="com.hyc.domain.Student">
+    update student
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <delete id="deleteBatch">
+    delete from student where id in
+    <foreach item="userId" collection="array" open="(" separator="," close=")">
+      #{userId}
+    </foreach>
+  </delete>
+</mapper>

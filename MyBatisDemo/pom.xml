@@ -5,7 +5,7 @@
   <artifactId>MybatisTest</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>com.hyc.test Maven Webapp</name>
+  <name>com.hyc.domain Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
 
@@ -30,7 +30,7 @@
     </dependency>
   </dependencies>
   <build>
-    <finalName>com.hyc.test</finalName>
+    <finalName>com.hyc.domain</finalName>
     <resources>
       <resource>
         <directory>src/main/java</directory>
